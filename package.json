@@ -4,9 +4,10 @@
   "version": "1.0.0",
   "description": "文件复制插件",
   "keywords": [
-    "zzes-filecopy", "文件复制插件"
+    "zzes-filecopy",
+    "文件复制插件"
 ],
-  "repository": "",
+  "repository": "https://github.com/klren0312/uniapp-fileCopy-plugin",
   "engines": {
     "HBuilderX": "^3.6.8"
   },
@@ -24,9 +25,9 @@
       "qq": ""
     },
     "declaration": {
-      "ads": "",
-      "data": "",
-      "permissions": ""
+      "ads": "无",
+      "data": "插件不采集任何数据",
+      "permissions": "无"
     },
     "npmurl": ""
   },
@@ -35,8 +36,8 @@
     "encrypt": [],
     "platforms": {
       "cloud": {
-        "tcb": "u",
-        "aliyun": "u"
+        "tcb": "y",
+        "aliyun": "y"
       },
       "client": {
         "Vue": {
