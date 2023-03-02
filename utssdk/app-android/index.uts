@@ -1,0 +1,50 @@
+import File from 'java.io.File';
+import FileInputStream from 'java.io.FileInputStream';
+import FileOutputStream from 'java.io.FileOutputStream';
+import FileChannel from 'java.nio.channels.FileChannel';
+
+/**
+ * 复制文件
+ * @param {string} sourceFilePath 原始文件地址
+ * @param {string} targetFolderPath 目标文件夹地址
+ * @param {string} targetFileName 目标文件名称
+ * @return 回显值
+ */
+export function doCopyFile(sourceFilePath: string, targetFolderPath: string, targetFileName: string): UTSJSONObject {
+	const targetFilePath: string = targetFolderPath + '/' + targetFileName;
+	const sourceFile: File = new File(sourceFilePath);
+	// 判断原始文件是否存在
+	if (!sourceFile.exists()) {
+		const ret: UTSJSONObject = {
+			code: -1,
+			data: false,
+			msg: '原始文件不存在'
+		};
+		return ret;
+	}
+	const targetFolder: File = new File(targetFolderPath);
+	if (!targetFolder.exists()) {
+		// 判断目标目录是否存在, 不存在则新建目录
+		targetFolder.mkdir();
+	} else {
+		// 存在目录则判断是否存在同名文件, 存在则删除
+		const targetFile: File = new File(targetFilePath);
+		if (targetFile.exists()) {
+			targetFile.delete();
+		}
+	}
+	const sourceChannel: FileChannel = new FileInputStream(sourceFile).getChannel();
+	const targetChannel: FileChannel = new FileOutputStream(targetFilePath).getChannel();
+	sourceChannel.transferTo(0, sourceChannel.size(), targetChannel);
+	sourceChannel.close();
+	targetChannel.close();
+	const ret: UTSJSONObject = {
+		code: 200,
+		data: {
+			sourceFilePath,
+			targetFilePath
+		},
+		msg: '复制成功'
+	};
+	return ret;
+}
